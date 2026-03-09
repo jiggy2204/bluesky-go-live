@@ -137,7 +137,30 @@ The path to Node.js in your `.bat` file is wrong. Run `where node` in Command Pr
 
 ## Also Included — Auto Post on Stream Start
 
-`post-to-bluesky.mjs` is a companion script that posts to your Bluesky feed when you go live, complete with clickable URLs and hashtags. Set it up the same way — fill in your handle, App Password, and post text at the top of the file, then wire it to your Stream Started event in Mix It Up alongside the live status script.
+`post-to-bluesky.mjs` is a companion script that posts to your Bluesky feed when you go live, complete with clickable URLs and hashtags.
+
+### Setup
+
+Open the file and fill in the CONFIG section at the top:
+
+```js
+const BLUESKY_HANDLE       = "yourhandle.bsky.social";
+const BLUESKY_APP_PASSWORD = "xxxx-xxxx-xxxx-xxxx";     // Same App Password as above
+const POST_TEXT            = "https://twitch.tv/yourchannel Come hang! #YourHashtag";
+```
+
+- URLs and `#hashtags` in `POST_TEXT` are automatically made clickable — no extra work needed
+- Keep your post under **300 characters** (Bluesky's limit)
+- Update `POST_TEXT` whenever your stream content or tags change
+
+### Wiring Up in Mix It Up
+
+Add it to your **Stream Started** event the same way as the live status script — as a second action in the same event, so both fire together when you go live:
+
+- **Program:** full path to `node.exe`
+- **Arguments:** full path to `post-to-bluesky.mjs`
+
+> Note: this script uses the `.mjs` extension. Make sure you don't accidentally rename it to `.js` — Node.js treats them differently.
 
 ---
 
